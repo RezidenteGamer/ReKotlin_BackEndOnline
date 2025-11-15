@@ -3,6 +3,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.web.cors.CorsConfigurationSource
+import java.util.Arrays
 
 
 @Configuration
@@ -12,13 +13,14 @@ class CorsConfig {
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuracao = CorsConfiguration()
 
-        configuracao.allowedOrigins = listOf(
+        // IMPORTANTE: Adicionar o domínio do Vercel
+        configuracao.allowedOrigins = Arrays.asList(
             "http://localhost:5173",
-            "https://seu-projeto.vercel.app"
+            "https://seu-projeto.vercel.app" // Você vai pegar essa URL depois
         )
-        configuracao.allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
-        configuracao.allowedHeaders = listOf("*")
-        configuracao.allowCredentials = true
+        configuracao.allowedMethods = Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")
+        configuracao.allowedHeaders = Arrays.asList("*")
+        configuracao.allowCredentials = true // ADICIONAR ESTA LINHA
 
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", configuracao)
@@ -26,3 +28,4 @@ class CorsConfig {
         return source
     }
 }
+
